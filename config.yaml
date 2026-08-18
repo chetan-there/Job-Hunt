@@ -1,0 +1,242 @@
+# jobhunt configuration. Everything tunable lives here — no editing Python.
+#
+# Tuned for Chetan's current resume:
+# - Final-year B.E. Computer Engineering / 2026 graduate
+# - Java + Spring Boot backend
+# - Python + AI/LLM
+# - React full-stack
+# - REST APIs / SQL / MySQL / Oracle
+# - Spring Security / JWT / RBAC
+# - Kafka / Microservices
+# - JUnit / Mockito / pytest
+#
+# Target level: Entry-level / Graduate / Junior Software Engineer
+# Primary focus: Backend Java + Full Stack + AI/Software Engineering
+
+filters:
+  # Title regexes, matched case-insensitively against the job title only.
+  # A title must match at least one include AND zero excludes.
+  #
+  # Keep these broad enough to catch Java/Spring/Backend/Full Stack/AI roles
+  # while avoiding unrelated engineering disciplines.
+  include_titles:
+    # Core Software Engineering
+    - '\bsoftware engineer\b'
+    - '\bsoftware development engineer\b'
+    - '\bsde\b'
+    - '\bsde\s*-?\s*(i{1,3}|[123])\b'
+    - '\bsoftware developer\b'
+    - '\bapplication engineer\b'
+    - '\bapplication developer\b'
+
+    # Backend / Java
+    - '\bbackend engineer\b'
+    - '\bback-end engineer\b'
+    - '\bbackend developer\b'
+    - '\bback-end developer\b'
+    - '\bjava engineer\b'
+    - '\bjava developer\b'
+    - '\bjava software engineer\b'
+    - '\bspring boot engineer\b'
+    - '\bspring boot developer\b'
+
+    # Full Stack
+    - '\bfull[\s-]?stack engineer\b'
+    - '\bfull[\s-]?stack developer\b'
+    - '\bfull[\s-]?stack software engineer\b'
+
+    # Python / AI / GenAI
+    - '\bpython engineer\b'
+    - '\bpython developer\b'
+    - '\bai engineer\b'
+    - '\bai software engineer\b'
+    - '\bgenerative ai engineer\b'
+    - '\bgenai engineer\b'
+    - '\bllm engineer\b'
+    - '\bmachine learning engineer\b'
+    - '\bml engineer\b'
+    - '\bai developer\b'
+
+    # Platform / API / Distributed backend roles
+    - '\bplatform engineer\b'
+    - '\bapi engineer\b'
+    - '\bbackend software engineer\b'
+    - '\bdistributed systems engineer\b'
+
+    # General entry-level engineering titles
+    - '\bmember of technical staff\b'
+    - '\btechnical engineer\b'
+
+  # Anything matching these is dropped even if an include matched.
+  exclude_titles:
+    # Too senior for current experience level
+    - '\b(staff|principal|distinguished|fellow|architect)\b'
+    - '\bsenior\b'
+    - '\blead\b'
+    - '\btech lead\b'
+    - '\bteam lead\b'
+
+    # Management / leadership
+    - '\b(director|vp|vice president|head of|chief|cto)\b'
+    - '\b(manager|management)\b'
+
+    # Internship / trainee roles
+    #
+    # Your resume has completed internship experience, so prioritize
+    # actual entry-level/full-time roles rather than trainee programs.
+    - '\b(intern|internship|apprentice|trainee)\b'
+
+    # Non-engineering roles
+    - '\b(sales|account executive|marketing|recruit|recruiter|support|customer success)\b'
+
+    # Frontend/mobile/design specializations that don't match your target
+    # backend/full-stack profile.
+    - '\b(frontend|front-end)\b'
+    - '\bios\b'
+    - '\bandroid\b'
+    - '\bmobile\b'
+    - '\bgame developer\b'
+    - '\bdesigner\b'
+    - '\bux\b'
+    - '\bui designer\b'
+
+    # Data/research roles that are not aligned with your current profile
+    - '\bdata scientist\b'
+    - '\bmachine learning scientist\b'
+    - '\bresearch scientist\b'
+    - '\bresearch engineer\b'
+    - '\bdata analyst\b'
+    - '\bdata engineer\b'
+
+    # Hardware / low-level roles not supported by the resume
+    - '\bembedded\b'
+    - '\bfirmware\b'
+    - '\bkernel\b'
+    - '\bdriver\b'
+    - '\bnetwork engineer\b'
+    - '\bnetworking engineer\b'
+
+  # Substrings matched against "<location> <title>", case-insensitive.
+  #
+  # Your resume is based in Nagpur, but for software jobs you should
+  # prioritize the major Indian technology hubs plus remote roles.
+  locations:
+    - nagpur
+    - pune
+    - mumbai
+    - bangalore
+    - bengaluru
+    - hyderabad
+    - chennai
+    - gurgaon
+    - gurugram
+    - noida
+    - delhi
+    - india
+
+  # If true, anything reading as remote passes the location gate.
+  allow_remote: true
+
+  # Drop postings older than this.
+  # Keep this reasonably tight because you're actively job hunting.
+  max_age_days: 30
+
+# --- LLM stages -------------------------------------------------------------
+#
+# These settings don't need major changes for your resume.
+# Screening should remain relatively cheap because many companies
+# may have Java/backend/full-stack openings.
+
+screen_batch_size: 8
+screen_jd_chars: 1600
+draft_jd_chars: 6000
+
+# 7/10 is a reasonable starting threshold.
+# Raise to 7.5-8 after you start getting too many results.
+score_threshold: 5.0
+
+# Number of jobs that receive expensive draft calls.
+max_per_digest: 5
+
+# --- paths ------------------------------------------------------------------
+
+companies_file: companies.yaml
+profile_file: profile.json
+seen_file: seen.json
+digest_file: out/digest.html
+tracker_csv: out/tracker.csv
+
+# # jobhunt configuration. Everything tunable lives here — no editing Python.
+# #
+# # Tune `filters` first. It is deterministic, free, and it is what keeps the
+# # LLM bill small: roughly 2000 raw postings -> 40 candidates before a single
+# # token is spent.
+
+# filters:
+#   # Title regexes, matched case-insensitively against the job title only.
+#   # A title must match at least one include AND zero excludes.
+#   #
+#   # Gotcha: "sde" as a bare regex does NOT match "Software Development
+#   # Engineer" — different words entirely. Use \bsde\b for the acronym and
+#   # list the spelled-out variants separately, as below.
+#   include_titles:
+#     - '\b(software|backend|back-end|server|platform|infrastructure|infra|systems|distributed|cloud)\b.*\bengineer\b'
+#     - '\bengineer\b.*\b(backend|back-end|platform|infrastructure|infra|systems|distributed)\b'
+#     - '\bsde\b'
+#     - '\bsde\s*-?\s*(i{1,3}|[123])\b'
+#     - 'software development engineer'
+#     - 'software engineer'
+#     - 'site reliability engineer'
+#     - '\bsre\b'
+#     - 'member of technical staff'
+#     # systems / networking track — matches your DPDK, packet-processing and
+#     # kernel background. Drop these if you widen away from low-level work.
+#     - '\bnetwork(ing)?\s+(software\s+)?engineer\b'
+#     - '\b(kernel|embedded|firmware|driver|packet|dataplane|data plane)\b.*\bengineer\b'
+#     - '\bengineer\b.*\b(kernel|packet|dataplane|networking|performance)\b'
+#     - '\bperformance engineer\b'
+#     - '\bsystems engineer\b'
+#     - '\bc\+\+\b.*\bengineer\b'
+#     - '\bengineer\b.*\bc\+\+\b'
+
+#   # Anything matching these is dropped even if an include matched.
+#   exclude_titles:
+#     - '\b(staff|principal|distinguished|fellow|architect)\b'      # too senior for now
+#     # "Senior" at 2.5 years is a consistent 3-4 from the screener — dropping it
+#     # here is free, dropping it after an LLM call is not. Delete this line once
+#     # you are ~4 years in, or if you want to stretch-apply anyway.
+#     - '\bsenior\b'
+#     - '\b(director|vp|vice president|head of|chief|cto)\b'
+#     - '\b(manager|management)\b'
+#     - '\b(intern|internship|apprentice|trainee)\b'                # too junior
+#     - '\b(sales|account executive|marketing|recruit|support|success)\b'
+#     - '\b(frontend|front-end|ios|android|mobile|game|designer)\b' # wrong discipline
+#     - '\b(data scientist|machine learning scientist|research scientist)\b'
+
+#   # Substrings matched against "<location> <title>", case-insensitive.
+#   # Leave empty to accept every location.
+#   locations:
+#     - bangalore
+#     - bengaluru
+#     - india
+
+#   # If true, anything reading as remote passes the location gate.
+#   allow_remote: true
+
+#   # Drop postings older than this. Set to null to disable.
+#   # Boards often re-stamp `updated_at`, so this is a soft signal, not a promise.
+#   max_age_days: 30
+
+# # --- LLM stages -------------------------------------------------------------
+# screen_batch_size: 8      # jobs per screening call. Higher = cheaper, sloppier.
+# screen_jd_chars: 1400     # JD truncation for screening
+# draft_jd_chars: 6000      # JD truncation for drafting
+# score_threshold: 7.0      # below this, no draft and no digest slot
+# max_per_digest: 5         # hard cap on expensive draft calls per run
+
+# # --- paths ------------------------------------------------------------------
+# companies_file: companies.yaml
+# profile_file: profile.json
+# seen_file: seen.json
+# digest_file: out/digest.html
+# tracker_csv: out/tracker.csv
