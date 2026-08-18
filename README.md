@@ -1,7 +1,3 @@
-Perfect — your **jobhunt** project is essentially a personal ATS‑powered job‑search agent. For your **PWP (Personal Work Project)** write‑up, you want something that feels professional, concise, and clearly related to the project. Here’s a draft you can adapt directly:
-
----
-
 ## 📌 Personal Work Project (PWP) – _Jobhunt: AI‑Powered Job Search Agent_
 
 **Overview:**  
@@ -38,8 +34,3 @@ Jobhunt is a Python‑based automation tool designed to streamline the job‑sea
 - End‑to‑end automation with GitHub Actions and secure secrets management.
 
 ---
-
-👉 This PWP description positions your project as **applied AI + automation for career workflows**. It shows technical depth (Python, ATS APIs, LLMs) and practical impact (time savings, cost efficiency).
-
-Would you like me to also **condense this into a 3–4 line resume bullet** so it fits neatly under your _Projects_ section?
-"# Job-Hunt" 
